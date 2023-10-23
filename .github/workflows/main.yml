@@ -1,0 +1,21 @@
+name: Build resume
+on: push
+permissions:
+  packages: write
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  pdflatex-build:
+    name: PDFLatex
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: .
+    steps:
+      - name: Install PDFLatex
+        run: sudo apt-get install -y texlive-latex-base texlive-fonts-recommended texlive-fonts-extra texlive-latex-extra
+      - name: Build
+        run: pdflatex main.tex
+          
